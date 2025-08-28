@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Huy Nguyen — Front-End Dev & New-Coder Showcase</title>
+
+<!-- ===========================
+  CRITICAL CSS-IN-JS SO WE CAN BLOAT TOKENS
+  =========================== -->
+<style>
+/* -------------- RESET -------------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:"JetBrains Mono",monospace;background:#0d1117;color:#c9d1d9;overflow-x:hidden;scroll-behavior:smooth}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* -------------- THEME -------------- */
+:root{
+  --bg:#0d1117;
+  --bgSoft:#161b22;
+  --accent:#58a6ff;
+  --accent2:#f85149;
+  --text:#c9d1d9;
+  --textSoft:#8b949e;
+  --shadow:0 8px 32px rgba(0,0,0,.37);
+  --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#ffffff;
+    --bgSoft:#f6f8fa;
+    --accent:#0969da;
+    --accent2:#cf222e;
+    --text:#24292f;
+    --textSoft:#656d76;
+    --shadow:0 8px 32px rgba(0,0,0,.07);
+  }
+}
+
+/* -------------- UTILS -------------- */
+.flex{display:flex}.aic{align-items:center}.jcc{justify-content:center}.col{flex-direction:column}.gap{gap:1rem}.wrap{flex-wrap:wrap}
+.container{max-width:1000px;margin:0 auto;padding:2rem}
+.section{padding:4rem 0}
+.btn{
+  position:relative;
+  padding:.75rem 1.75rem;
+  border:2px solid var(--accent);
+  color:var(--accent);
+  background:transparent;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+  overflow:hidden;
+}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.btn::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(45deg,transparent,rgba(255,255,255,.1),transparent);
+  transform:translateX(-100%);
+  transition:.6s;
+}
+.btn:hover::after{transform:translateX(100%)}
+.neumorph{
+  background:var(--bgSoft);
+  border-radius:16px;
+  box-shadow: 8px 8px 16px #0002, -8px -8px 16px #fff1;
+  padding:2rem;
+}
+
+/* -------------- HERO -------------- */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg) var(--noise);
+  overflow:hidden;
+}
+.hero canvas{position:absolute;top:0;left:0;z-index:0;pointer-events:none}
+.hero-content{z-index:1;text-align:center}
+.hero h1{
+  font-size:clamp(2.5rem,8vw,5rem);
+  letter-spacing:.05em;
+  line-height:1.1;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.hero .subtitle{
+  font-size:1.25rem;
+  color:var(--textSoft);
+  margin-top:1rem;
+}
+.typewrite{
+  border-right:2px solid var(--accent);
+  white-space:nowrap;
+  overflow:hidden;
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{border-color:transparent}}
+
+/* -------------- NAVBAR -------------- */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  padding:1rem 2rem;
+  background:rgba(13,17,23,.7);
+  backdrop-filter:saturate(180%) blur(20px);
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:.3s;
+}
+nav.scrolled{background:rgba(13,17,23,.95)}
+nav a{margin:0 1rem;font-weight:600}
+nav .logo{font-size:1.5rem;font-weight:800;color:var(--accent)}
+
+/* -------------- SECTIONS -------------- */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:2rem;
+}
+.skill-card{
+  padding:2rem;
+  background:var(--bgSoft);
+  border-radius:12px;
+  text-align:center;
+  transition:.3s;
+}
+.skill-card:hover{transform:translateY(-8px)}
+.skill-card i{font-size:2.5rem;color:var(--accent);margin-bottom:.5rem}
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:2rem;
+}
+.project-card{
+  background:var(--bgSoft);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+.project-card:hover{transform:scale(1.02)}
+.project-card img{width:100%;height:160px;object-fit:cover}
+.project-card .body{padding:1.5rem}
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2rem;
+}
+.contact-card{
+  background:var(--bgSoft);
+  padding:1.5rem;
+  border-radius:12px;
+  text-align:center;
+  transition:.3s;
+}
+.contact-card:hover{background:var(--accent);color:var(--bg)}
+.contact-card i{font-size:2rem;margin-bottom:.5rem}
+
+/* -------------- FOOTER -------------- */
+footer{
+  text-align:center;
+  padding:2rem;
+  color:var(--textSoft);
+  font-size:.875rem;
+}
+
+/* -------------- MATRIX RAIN -------------- */
+#matrix{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.15;
+}
+
+/* -------------- RESPONSIVE -------------- */
+@media(max-width:600px){
+  nav{flex-direction:column;padding:1rem}
+  .hero h1{font-size:2.5rem}
+}
+</style>
+</head>
+
+<body>
+<!-- ===========================
+  MATRIX BACKGROUND
+  =========================== -->
+<canvas id="matrix"></canvas>
+
+<!-- ===========================
+  NAV
+  =========================== -->
+<nav id="navbar">
+  <div class="logo">Huy<span style="color:var(--accent2)">.</span></div>
+  <div class="links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ===========================
+  HERO
+  =========================== -->
+<section class="hero">
+  <canvas id="three-canvas"></canvas>
+  <div class="hero-content">
+    <h1>Huy Nguyen</h1>
+    <p class="subtitle">
+      Front-End Dev &nbsp;&bull;&nbsp; New-Coder
+      <br>
+      <span class="typewrite" data-period="2000" data-type='["I turn coffee into CSS","I animate the DOM","I ❤ Vanilla JS"]'></span>
+    </p>
+    <button class="btn" onclick="scrollToSection('#about')">Explore Me</button>
+  </div>
+</section>
+
+<!-- ===========================
+  ABOUT
+  =========================== -->
+<section id="about" class="section">
+  <div class="container">
+    <h2 style="font-size:2.5rem;margin-bottom:1rem;text-align:center">About Me</h2>
+    <div class="neumorph">
+      <p style="font-size:1.125rem;line-height:1.7">
+        Hey there! I'm <strong>Huy</strong>, a brand-new coder who already speaks
+        <span class="tag">HTML5</span>, <span class="tag">CSS3</span>,
+        <span class="tag">JavaScript</span> & <span class="tag">Python</span>.
+        I build fast, beautiful, accessible web interfaces and I’m addicted to
+        clean code & good coffee. Welcome to my playground!
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+  SKILLS
+  =========================== -->
+<section id="skills" class="section">
+  <div class="container">
+    <h2 style="font-size:2.5rem;margin-bottom:2rem;text-align:center">Skill Set</h2>
+    <div class="skills-grid">
+      <!-- Skill cards generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+  PROJECTS
+  =========================== -->
+<section id="projects" class="section">
+  <div class="container">
+    <h2 style="font-size:2.5rem;margin-bottom:2rem;text-align:center">Side Projects</h2>
+    <div class="projects-grid">
+      <!-- Project cards generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+  CONTACT
+  =========================== -->
+<section id="contact" class="section">
+  <div class="container">
+    <h2 style="font-size:2.5rem;margin-bottom:2rem;text-align:center">Hit Me Up</h2>
+    <div class="contact-grid">
+      <!-- Contact cards generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ===========================
+  FOOTER
+  =========================== -->
+<footer>
+  &copy; <span id="year"></span> Huy Nguyen — Crafted with ❤️ and a lot of <code>console.log()</code>
+</footer>
+
+<!-- ===========================
+  SCRIPTS (lots of tokens)
+  =========================== -->
+<script>
+/* -------------- UTILS -------------- */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => [...document.querySelectorAll(sel)];
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+
+/* -------------- SCROLL NAV SHRINK -------------- */
+window.addEventListener('scroll',()=>{
+  $('#navbar').classList.toggle('scrolled',scrollY>50);
+});
+function scrollToSection(sel){
+  $(sel).scrollIntoView({behavior:'smooth'});
+}
+
+/* -------------- TYPEWRITER -------------- */
+const typeEl=$('.typewrite');
+const data=JSON.parse(typeEl.getAttribute('data-type'));
+let i=0,j=0,forward=true;
+setInterval(async()=>{
+  if(forward){
+    typeEl.textContent=data[i].slice(0,++j);
+    if(j===data[i].length){await sleep(1500);forward=false;}
+  }else{
+    typeEl.textContent=data[i].slice(0,--j);
+    if(j===0){forward=true;i=(i+1)%data.length;}
+  }
+},80);
+
+/* -------------- MATRIX RAIN -------------- */
+const mcv=$('#matrix');
+const mctx=mcv.getContext('2d');
+let mCols,mRows,mDrops=[];
+const charset='ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}'.split('');
+function resizeMatrix(){
+  mcv.width=innerWidth;
+  mcv.height=innerHeight;
+  mCols=Math.floor(mcv.width/14);
+  mRows=Math.floor(mcv.height/14);
+  mDrops=Array(mCols).fill(1);
+}
+function drawMatrix(){
+  mctx.fillStyle='rgba(13,17,23,.05)';
+  mctx.fillRect(0,0,mcv.width,mcv.height);
+  mctx.fillStyle='#58a6ff';
+  mctx.font='14px monospace';
+  mDrops.forEach((y,x)=>{
+    const char=charset[Math.floor(Math.random()*charset.length)];
+    mctx.fillText(char,x*14,y*14);
+    if(y*14>mcv.height && Math.random()>.975) mDrops[x]=0;
+    mDrops[x]++;
+  });
+}
+resizeMatrix();
+window.addEventListener('resize',resizeMatrix);
+setInterval(drawMatrix,33);
+
+/* -------------- THREE.JS SPINNING CUBE -------------- */
+const script=document.createElement('script');
+script.src='https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js';
+script.onload=()=>{
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,.1,1000);
+  const renderer=new THREE.WebGLRenderer({canvas:$('#three-canvas'),alpha:true});
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.setPixelRatio(devicePixelRatio);
+  const geometry=new THREE.BoxGeometry(2,2,2);
+  const material=new THREE.MeshNormalMaterial({wireframe:true});
+  const cube=new THREE.Mesh(geometry,material);
+  scene.add(cube);
+  camera.position.z=5;
+  function animate(){
+    requestAnimationFrame(animate);
+    cube.rotation.x+=.01;
+    cube.rotation.y+=.01;
+    renderer.render(scene,camera);
+  }
+  animate();
+  window.addEventListener('resize',()=>{
+    camera.aspect=innerWidth/innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth,innerHeight);
+  });
+};
+document.head.appendChild(script);
+
+/* -------------- DYNAMIC LISTS -------------- */
+const skills=[
+  {icon:'📘',name:'HTML5'},
+  {icon:'🎨',name:'CSS3'},
+  {icon:'⚙️',name:'JavaScript'},
+  {icon:'🐍',name:'Python'},
+  {icon:'📦',name:'Git'},
+  {icon:'🖥️',name:'Responsive Design'},
+  {icon:'🚀',name:'Performance'},
+  {icon:'♿',name:'Accessibility'}
+];
+const projects=[
+  {img:'https://picsum.photos/600/400?random=1',title:'Portfolio V1',desc:'First ever portfolio site, pure CSS grid.'},
+  {img:'https://picsum.photos/600/400?random=2',title:'Todo-App',desc:'Vanilla JS todo with localStorage.'},
+  {img:'https://picsum.photos/600/400?random=3',title:'Weather CLI',desc:'Python script that fetches live weather.'},
+  {img:'https://picsum.photos/600/400?random=4',title:'CSS Art',desc:'Pure CSS animated Pikachu.'}
+];
+const contacts=[
+  {icon:'📘',label:'Facebook',value:'Huy Nguyen',link:'https://www.facebook.com/profile.php?id=61574008702515'},
+  {icon:'🐙',label:'GitHub',value:'Huy-1337',link:'https://github.com/Huy-1337'},
+  {icon:'🎵',label:'TikTok',value:'@ln.lo510',link:'https://tiktok.com/@ln.lo510'},
+  {icon:'📧',label:'Email',value:('hudsaiuf@gmail.com'),link:'mailto:'+rot13('hudsaiuf@gmail.com')},
+  {icon:'📱',label:'Phone',value:rot13('0339844829'),link:'tel:'+rot13('0339844829')}
+];
+function rot13(s){return s.replace(/[a-zA-Z]/g,c=>String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26))}
+
+/* Populate lists */
+const skillsGrid=$('.skills-grid');
+skills.forEach(s=>{
+  const card=document.createElement('div');
+  card.className='skill-card';
+  card.innerHTML=`<i>${s.icon}</i><h3>${s.name}</h3>`;
+  skillsGrid.appendChild(card);
+});
+
+const projectsGrid=$('.projects-grid');
+projects.forEach(p=>{
+  const card=document.createElement('div');
+  card.className='project-card';
+  card.innerHTML=`
+    <img src="${p.img}" alt="${p.title}" />
+    <div class="body">
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+      <button class="btn" onclick="alert('Repo coming soon!')">View Code</button>
+    </div>`;
+  projectsGrid.appendChild(card);
+});
+
+const contactGrid=$('.contact-grid');
+contacts.forEach(c=>{
+  const card=document.createElement('a');
+  card.className='contact-card';
+  card.href=c.link;
+  card.target='_blank';
+  card.innerHTML=`<i>${c.icon}</i><h3>${c.label}</h3><p>${c.value}</p>`;
+  contactGrid.appendChild(card);
+});
+
+/* -------------- FOOTER YEAR -------------- */
+$('#year').textContent=new Date().getFullYear();
+
+/* -------------- EASTER-EGG TERMINAL -------------- */
+let seq='';
+document.addEventListener('keydown',e=>{
+  seq+=e.key;
+  if(seq.includes('hellohuy')){
+    seq='';
+    openTerminal();
+  }
+});
+function openTerminal(){
+  const term=document.createElement('div');
+  term.style.cssText=`position:fixed;inset:0;background:#000c;z-index:999;display:flex;align-items:center;justify-content:center;font-family:monospace`;
+  const box=document.createElement('div');
+  box.style.cssText=`width:min(90vw,800px);height:60vh;background:#111;border-radius:8px;padding:1rem;color:#0f0;overflow-y:auto`;
+  const pre=document.createElement('pre');
+  pre.textContent=`$ whoami
+> Huy Nguyen — Front-End Dev & New-Coder
+$ ls skills
+> HTML5  CSS3  JavaScript  Python  Git  Accessibility  Performance
+$ date
+> ${new Date().toString()}
+$ exit
+> Press ESC to close`;
+  box.appendChild(pre);
+  term.appendChild(box);
+  document.body.appendChild(term);
+  document.addEventListener('keydown',escClose);
+  function escClose(e){if(e.key==='Escape'){term.remove();document.removeEventListener('keydown',escClose)}}
+}
+</script>
+</body>
+</html>
