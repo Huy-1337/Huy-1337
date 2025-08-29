@@ -16,4 +16,10 @@
 
 ---
 
+## 🕵️ What Else I Dive Into
+
+- **OSINT (Open Source Intelligence)** – finding patterns, digging up information, and connecting dots online  
+
+---
+
 > ☕ *“Code is poetry, and coffee is the ink.”*
