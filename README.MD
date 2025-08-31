@@ -23,3 +23,7 @@
 ---
 
 > ☕ *“Code is poetry, and coffee is the ink.”*
+
+---
+## Currently Learning
+** C # ( Just learn how to say Hello World!) **
