@@ -1,29 +1,32 @@
-<!-- README.md -->
-# 👋 Hey there, I’m Huy
+````markdown name=README.md
+# Hi, I'm Huy-1337 👋
 
-> A brand-new coder who already speaks **HTML5, CSS3, JavaScript & Python**.  
-> I build **fast**, **beautiful**, **accessible** web interfaces and I’m hopelessly addicted to **clean code & good coffee**.  
-> Welcome to my playground!
+I'm a beginner in coding, passionate about building beautiful and functional web interfaces. I'm currently learning and experimenting with:
+
+- **HTML**
+- **CSS**
+- **JavaScript**
+- **Python**
+- **MySQL**
+- **Node.js**
+
+## 🌱 What I'm Up To
+
+I'm on a journey to become a skilled frontend developer, constantly learning new technologies and best practices. My focus right now is on strengthening my fundamentals and building real-world projects.
+
+## 🚀 My Links
+
+- 🌐 [Portfolio Website](https://huy-1337-profile.infinityfree.me/)
+- 📘 [Facebook](https://www.facebook.com/profile.php?id=61574008702515)
+- 🎵 [TikTok](https://www.tiktok.com/@ln.lo510)
+
+## 📫 How to Reach Me
+
+- Email: hudsaiuf@gmail.com
 
 ---
 
-## 🔧 What I Can Write
+> “Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.” – Patrick McKenzie
 
-- **HTML** – semantic, accessible markup  
-- **CSS** – modern layouts, responsive design, utility-first or component-driven  
-- **JavaScript** – vanilla or framework-powered interactivity  
-- **Python** – clean, readable back-end logic and automation scripts  
-
----
-
-## 🕵️ What Else I Dive Into
-
-- **OSINT (Open Source Intelligence)** – finding patterns, digging up information, and connecting dots online  
-
----
-
-> ☕ *“Code is poetry, and coffee is the ink.”*
-
----
-## Currently Learning
-** C # ( Just learn how to say Hello World!) **
+Feel free to connect or check out my work as I grow!
+````
