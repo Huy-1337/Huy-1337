@@ -1,4 +1,4 @@
-````markdown name=README.md
+
 # Hi, I'm Huy-1337 👋
 
 I'm a beginner in coding, passionate about building beautiful and functional web interfaces. I'm currently learning and experimenting with:
@@ -30,3 +30,4 @@ I'm on a journey to become a skilled frontend developer, constantly learning new
 
 Feel free to connect or check out my work as I grow!
 ````
+
